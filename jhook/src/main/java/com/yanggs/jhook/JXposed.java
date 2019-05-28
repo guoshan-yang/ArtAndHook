@@ -67,6 +67,13 @@ public class JXposed {
     }
 
     private static void beginHook(BackMethod backMethod) throws Exception {
+
+        String sigName=backMethod.getOldMethod().getDeclaringClass().getSimpleName()+"_"+MethodUtil.sign(backMethod.getOldMethod());
+
+        if(hooked.get(sigName)!=null){
+            return;
+        }
+
         if (HookUtil.isArt()){
             DexMaker dexMaker = new DexMaker();
             String className=backMethod.getOldMethod().getDeclaringClass().getName().replace(".","_");
