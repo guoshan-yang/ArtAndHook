@@ -1,6 +1,6 @@
-package com.iwcode.jhook.utils;
+package com.yanggs.jhook.utils;
 
-import com.iwcode.jhook.MethodCallback;
+import com.yanggs.jhook.MethodCallback;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

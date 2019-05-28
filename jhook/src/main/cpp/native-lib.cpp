@@ -11,19 +11,9 @@
 
 size_t methsize;
 
-extern "C" JNIEXPORT jint
-JNICALL
-Java_com_democpp_MainActivity_fork(
-        JNIEnv *env,
-        jobject /* this */) {
-    pid_t pid;
-    pid = fork();
-    return pid;
-}
-
 extern "C" JNIEXPORT void
 JNICALL
-Java_com_iwcode_jhook_HookUtil_replaceNativeArt(JNIEnv* env, jclass clazz,jobject src, jobject new_,jobject invoker) {
+Java_com_yanggs_jhook_HookUtil_replaceNativeArt(JNIEnv* env, jclass clazz,jobject src, jobject new_,jobject invoker) {
 
     void* mSrc=(void*)env->FromReflectedMethod(src);
     void* mNew_= env->FromReflectedMethod(new_);
@@ -42,8 +32,8 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
         return -1;
     }
 
-    size_t firMid = (size_t) env->GetMethodID(env->FindClass("com/iwcode/jhook/Test"), "f1", "()V");
-    size_t secMid = (size_t) env->GetMethodID(env->FindClass("com/iwcode/jhook/Test"), "f2", "()V");
+    size_t firMid = (size_t) env->GetMethodID(env->FindClass("com/yanggs/jhook/Test"), "f1", "()V");
+    size_t secMid = (size_t) env->GetMethodID(env->FindClass("com/yanggs/jhook/Test"), "f2", "()V");
 
     methsize = secMid - firMid;
 

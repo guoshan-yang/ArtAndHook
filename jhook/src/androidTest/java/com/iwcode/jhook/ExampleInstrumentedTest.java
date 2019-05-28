@@ -1,4 +1,4 @@
-package com.iwcode.jhook;
+package com.yanggs.jhook;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.iwcode.jhook.test", appContext.getPackageName());
+        assertEquals("com.yanggs.jhook.test", appContext.getPackageName());
     }
 }

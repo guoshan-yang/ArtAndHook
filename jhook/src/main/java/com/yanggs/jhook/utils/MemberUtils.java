@@ -1,4 +1,4 @@
-package com.iwcode.jhook.utils;
+package com.yanggs.jhook.utils;
 
 public class MemberUtils {
 

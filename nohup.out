@@ -1,0 +1,16 @@
+2019-05-28 19:04:50.270 java[48787:1022434] *** Assertion failure in -[AWTWindow_Normal _changeJustMain], /BuildRoot/Library/Caches/com.apple.xbs/Sources/AppKit/AppKit-1671.50.111/AppKit.subproj/NSWindow.m:12742
+INFO  - output directory: Generated_-197252476
+INFO  - loading ...
+WARN  - Unknown 'R' class, create references to 'R'
+INFO  - output directory: Generated_-1682038017
+INFO  - loading ...
+WARN  - Unknown 'R' class, create references to 'R'
+INFO  - output directory: Generated_1277790651
+INFO  - loading ...
+WARN  - Unknown 'R' class, create references to 'R'
+INFO  - output directory: Generated_1873243731
+INFO  - loading ...
+WARN  - Unknown 'R' class, create references to 'R'
+INFO  - output directory: Generated_-197252476
+INFO  - loading ...
+WARN  - Unknown 'R' class, create references to 'R'

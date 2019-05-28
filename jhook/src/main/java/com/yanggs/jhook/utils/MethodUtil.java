@@ -1,4 +1,6 @@
-package com.iwcode.jhook.utils;
+package com.yanggs.jhook.utils;
+
+import android.util.Log;
 
 import com.android.dx.Code;
 import com.android.dx.DexMaker;
@@ -6,13 +8,14 @@ import com.android.dx.FieldId;
 import com.android.dx.Local;
 import com.android.dx.MethodId;
 import com.android.dx.TypeId;
-import com.iwcode.jhook.JXposed;
+import com.yanggs.jhook.JXposed;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.util.Map;
 
 /**
  * Created by YangGuoShan on 2019/5/27.
@@ -47,23 +50,11 @@ public class MethodUtil {
     private static MethodId byte_value=ByteType.getMethod(TypeId.BYTE,"byteValue");
     private static MethodId char_value=CharacterType.getMethod(TypeId.CHAR,"charValue");
 
-
-    /**
-     * 添加一个flag字段
-     * @param dexMaker
-     * @param declaringType
-     */
     public static void addDefaultInstanceField(DexMaker dexMaker, TypeId<?> declaringType) {
         FieldId fieldId=declaringType.getField(TypeId.INT,"flag");
         dexMaker.declare(fieldId,Modifier.PUBLIC ,null);
     }
 
-
-    /**
-     * 添加默认的构造函数
-     * @param dexMaker
-     * @param declaringType
-     */
     public static void addDefaultConstructor(DexMaker dexMaker, TypeId<?> declaringType) {
         Code code = dexMaker.declare(declaringType.getConstructor(), Modifier.PUBLIC);
         Local<?> thisRef = code.getThis(declaringType);
@@ -261,7 +252,6 @@ public class MethodUtil {
             types=((Constructor)m).getParameterTypes();
         }
         for(Type c:types){
-            //Log.i("panda",c.toString());
             String name=c.toString();
             if(name.equals(int.class.getName())){
                 mShort=mShort+"I";

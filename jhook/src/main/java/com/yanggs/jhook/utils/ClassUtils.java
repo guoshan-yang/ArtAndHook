@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.iwcode.jhook.utils;
+package com.yanggs.jhook.utils;
 
 import java.util.HashMap;
 import java.util.Map;

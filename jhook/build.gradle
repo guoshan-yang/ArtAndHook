@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
 
-
-
     defaultConfig {
-        minSdkVersion 22
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -39,6 +38,20 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+publish {
+    repoName="maven"//你的仓库名称，没有填写默认仓库是maven//这也是很多人上传仓库不对名问题最多情况，
+    userOrg = 'shineygs'      //bintray注册的用户名
+    groupId = 'com.yanggs'         //compile引用时的第1部分groupId
+    artifactId = 'arthook'     //compile引用时的第2部分项目名
+    publishVersion = '0.2.1'    //compile引用时的第3部分版本号
+    desc = 'art java hook method'//d项目描述
+    website = 'git@github.com:shineygs/ArtAndHook.git' //github 托管地址
 }
 
 dependencies {

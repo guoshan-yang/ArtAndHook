@@ -1,4 +1,4 @@
-package com.iwcode.jhook;
+package com.yanggs.jhook;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.android.dx.DexMaker;
 import com.android.dx.TypeId;
-import com.iwcode.jhook.utils.JXposedHelpers;
-import com.iwcode.jhook.utils.MethodUtil;
+import com.yanggs.jhook.utils.JXposedHelpers;
+import com.yanggs.jhook.utils.MethodUtil;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -29,13 +29,32 @@ public class JXposed {
 
     public static void findAndHookMethod(Class cla,String methodName,Object... parameterTypesAndCallback) {
         initContext();
+        if (parameterTypesAndCallback.length == 0 || !(parameterTypesAndCallback[parameterTypesAndCallback.length-1] instanceof MethodCallback))
+            throw new IllegalArgumentException("no callback defined");
         try{
-            if (parameterTypesAndCallback.length == 0 || !(parameterTypesAndCallback[parameterTypesAndCallback.length-1] instanceof MethodCallback))
-                throw new IllegalArgumentException("no callback defined");
             MethodCallback callback = (MethodCallback) parameterTypesAndCallback[parameterTypesAndCallback.length-1];
             Method m = cla.getDeclaredMethod(methodName, JXposedHelpers.getParameterClasses(cla.getClassLoader(), parameterTypesAndCallback));
 
             BackMethod back = new BackMethod();
+            back.setOldMethod(m);
+            back.setCallback(callback);
+            beginHook(back);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.i("JXposed",e.getClass()+":   "+e.getMessage());
+            Log.d("JXposed", Log.getStackTraceString(new Throwable()));
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public static void findAndHookConstructor(Class<?> clazz,Object... parameterTypesAndCallback) {
+        initContext();
+        if (parameterTypesAndCallback.length == 0 || !(parameterTypesAndCallback[parameterTypesAndCallback.length-1] instanceof MethodCallback))
+            throw new IllegalArgumentException("no callback defined");
+        try{
+            MethodCallback callback = (MethodCallback) parameterTypesAndCallback[parameterTypesAndCallback.length-1];
+            Constructor m = clazz.getDeclaredConstructor(JXposedHelpers.getParameterClasses(clazz.getClassLoader(), parameterTypesAndCallback));
+            BackMethod back=new BackMethod();
             back.setOldMethod(m);
             back.setCallback(callback);
             beginHook(back);
@@ -59,15 +78,18 @@ public class JXposed {
                 dexMaker.declare(cls, "", Modifier.PUBLIC, TypeId.get(target));
             }
             MethodUtil.addDefaultInstanceField(dexMaker,cls);
-            MethodUtil.addDefaultConstructor(dexMaker, cls);
 
-            // 生成备份的方法
             if(backMethod.getOldMethod() instanceof Method) {
                 MethodUtil.generateMethodFromMethod(dexMaker, cls, (Method) backMethod.getOldMethod());
                 MethodUtil.generateInvokerFromMethod(dexMaker, cls, (Method) backMethod.getOldMethod());
+                MethodUtil.addDefaultConstructor(dexMaker, cls);
             }else {
                 MethodUtil.generateMethodFromConstructor(dexMaker, cls, (Constructor) backMethod.getOldMethod());
                 MethodUtil.generateInvokerFromConstructor(dexMaker, cls, (Constructor) backMethod.getOldMethod());
+                int parameterCount = ((Constructor) backMethod.getOldMethod()).getParameterTypes().length;
+                if (parameterCount>0){
+                    MethodUtil.addDefaultConstructor(dexMaker, cls);
+                }
             }
 
             File outputDir = new File(context.getDir("path", Context.MODE_PRIVATE).getPath());
@@ -79,8 +101,11 @@ public class JXposed {
 
             ClassLoader loader = dexMaker.generateAndLoad(context.getClassLoader(), outputDir);
             Class<?> aClass = loader.loadClass(className);
-            Constructor con=aClass.getDeclaredConstructor();
-            con.newInstance();
+
+            if (backMethod.getOldMethod() instanceof Method){
+                Constructor con=aClass.getDeclaredConstructor();
+                con.newInstance();
+            }
 
             Member mem=null;
             Method invoker=null;
