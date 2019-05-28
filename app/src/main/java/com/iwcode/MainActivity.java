@@ -23,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
-                Logger.i("beforeHookedMethod:"+param.method.getName());
+                Logger.i("beforeHookedMethod:");
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
-                Logger.i("afterHookedMethod:"+param.method.getName());
+                Logger.i("afterHookedMethod:");
 
             }
         });
