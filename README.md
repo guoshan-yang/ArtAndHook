@@ -7,6 +7,14 @@
 
 不过对我来说已经够用了，最主要的是还比较稳定。
 
+
+```
+dependencies {
+    implementation 'com.yanggs:arthook:0.2.3'
+}
+```
+
+
 ```
 
 JXposed.findAndHookMethod(MainActivity.class, "testFun", String.class,int.class,new MethodCallback() {
