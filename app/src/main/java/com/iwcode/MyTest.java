@@ -17,7 +17,7 @@ public class MyTest {
         Logger.i("testFun:"+s+","+i);
     }
 
-    public static void testFunP(String s,int i){
+    public void testFunP(String s,int i){
         Logger.i("testFunP:"+s+","+i);
     }
 

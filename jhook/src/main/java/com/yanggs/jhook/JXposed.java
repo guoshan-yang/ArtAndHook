@@ -10,6 +10,7 @@ import com.yanggs.jhook.utils.JXposedHelpers;
 import com.yanggs.jhook.utils.MethodUtil;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -20,10 +21,6 @@ import java.util.HashMap;
  * Created by YangGuoShan on 2019/5/24.
  */
 public class JXposed {
-
-    static {
-        System.loadLibrary("native-lib");
-    }
 
     private static HashMap<String,BackMethod> hooked=new HashMap();
 
@@ -116,6 +113,10 @@ public class JXposed {
 
             Member mem=null;
             Method invoker=null;
+
+            if (!HookUtil.setMadeClassSuper(aClass)) {
+                throw new FileNotFoundException("found error!");
+            }
 
             if(backMethod.getOldMethod() instanceof Method){
                 mem=aClass.getDeclaredMethod(backMethod.getOldMethod().getName(),((Method) backMethod.getOldMethod()).getParameterTypes());
