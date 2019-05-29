@@ -12,6 +12,13 @@
 dependencies {
     implementation 'com.yanggs:arthook:0.2.3'
 }
+
+// 如果报错就加上这段代码
+allprojects {
+    repositories {
+        maven{url "https://dl.bintray.com/shineygs/maven"}
+    }
+}
 ```
 
 
