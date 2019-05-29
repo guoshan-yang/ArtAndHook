@@ -54,9 +54,8 @@ Java_com_yanggs_jhook_HookUtil_computeSupperCls(JNIEnv* env, jclass clazz,jobjec
     uint32_t *dCls=(uint32_t *)field->declaring_class_;
     uint32_t *hCls=(uint32_t *)demo->declaring_class_;
     for(int i=0;i<50;++i){
-        if(*(dCls+i)==NULL&&*(hCls+i)==(uint32_t)dCls){//compute SupperClass offset
+        if(*(dCls+i)==NULL&&*(hCls+i)==(uint32_t)dCls){
             supperOffset=i;
-            LOGD("find supperOffset=%d",i);
             return;
         }
     }
