@@ -8,8 +8,6 @@ import com.yanggs.jhook.MethodCallback;
 import com.yanggs.jhook.MethodHookParam;
 import com.yanggs.jhook.utils.JXposedHelpers;
 
-import java.lang.reflect.Method;
-
 
 public class MainActivity extends AppCompatActivity {
 
