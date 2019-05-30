@@ -51,7 +51,7 @@ publish {
     artifactId = 'arthook'     //compile引用时的第2部分项目名
     publishVersion = '0.2.6'    //compile引用时的第3部分版本号
     desc = 'art java hook method'//d项目描述
-    website = 'git@github.com:shineygs/ArtAndHook.git' //github 托管地址
+    website = 'https://github.com/shineygs/ArtAndHook' //github 托管地址
 }
 
 dependencies {
