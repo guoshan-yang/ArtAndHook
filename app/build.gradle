@@ -23,12 +23,8 @@ android {
 
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven{url "https://dl.bintray.com/shineygs/maven"}
-    }
+repositories {
+    maven{url "https://dl.bintray.com/shineygs/maven"}
 }
 
 dependencies {
@@ -39,6 +35,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation 'com.yanggs:arthook:0.2.3'
-//    implementation project(":jhook")
+//    implementation 'com.yanggs:arthook:0.2.3'
+    implementation project(":jhook")
 }

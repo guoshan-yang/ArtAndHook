@@ -63,17 +63,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        JXposed.findAndHookMethod(MyTest.class, "testFunP", String.class,int.class,new MethodCallback() {
+        JXposed.findAndHookMethod(MyTest.class, "testFunFinal", String.class,int.class,new MethodCallback() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
-                Logger.i("beforeHookedMethod: testFunP");
+                Logger.i("beforeHookedMethod: testFunFinal");
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
-                Logger.i("afterHookedMethod: testFunP");
+                Logger.i("afterHookedMethod: testFunFinal");
 
             }
         });
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         MyTest myTest = new MyTest("ygs1",1);
         myTest.testFun("ygs2",2);
-        myTest.testFunP("ygs3",3);
+        myTest.testFunFinal("ygs3",3);
         try{
             JXposedHelpers.callMethod(new MyTest(),"testFun2","ygs4", 4);
         }catch (Exception e){

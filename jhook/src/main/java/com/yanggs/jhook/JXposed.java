@@ -76,7 +76,7 @@ public class JXposed {
             String className=backMethod.getOldMethod().getDeclaringClass().getName().replace(".","_");
             TypeId<?> cls = TypeId.get("L"+className+";");
             Class target = backMethod.getOldMethod().getDeclaringClass();
-            if(Modifier.isFinal(target.getModifiers())) {
+            if(Modifier.isFinal(target.getModifiers()) || Modifier.isFinal(backMethod.getOldMethod().getModifiers())) {
                 dexMaker.declare(cls, "", Modifier.PUBLIC, TypeId.OBJECT);
             }else {
                 dexMaker.declare(cls, "", Modifier.PUBLIC, TypeId.get(target));
