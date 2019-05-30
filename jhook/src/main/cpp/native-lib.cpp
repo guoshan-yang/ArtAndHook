@@ -4,13 +4,16 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <cstdlib>
+#include <sys/system_properties.h>
 #include "art_method.h"
 
 #define  LOG_TAG    "JXposed"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 
 static size_t methsize;
-static int supperOffset;
+static int supperOffset = -1;
+static int api_level;
 
 
 extern "C" JNIEXPORT void
@@ -40,6 +43,9 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
 
     methsize = secMid - firMid;
 
+    char api_level_str[5];
+    __system_property_get("ro.build.version.sdk", api_level_str);
+    api_level = atoi(api_level_str);
     return JNI_VERSION_1_4;
 }
 
@@ -67,5 +73,16 @@ Java_com_yanggs_jhook_HookUtil_setSupperCls(JNIEnv *env, jclass type, jobject fl
 
     art::mirror::ArtField* field=(art::mirror::ArtField*)env->FromReflectedField(flag);
     size_t *dCls=(size_t *)field->declaring_class_;
+    if (supperOffset == -1){
+        if (api_level == 28 || api_level == 27 || api_level == 26){
+            supperOffset = 10;
+        }else if (api_level == 25){
+            supperOffset = 8;
+        }else if (api_level == 24 || api_level == 23){
+            supperOffset = 9;
+        }else if (api_level == 22 || api_level == 21){
+            supperOffset = 11;
+        }
+    }
     *(dCls + supperOffset) = NULL;
 }

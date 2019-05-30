@@ -49,7 +49,7 @@ publish {
     userOrg = 'shineygs'      //bintray注册的用户名
     groupId = 'com.yanggs'         //compile引用时的第1部分groupId
     artifactId = 'arthook'     //compile引用时的第2部分项目名
-    publishVersion = '0.2.6'    //compile引用时的第3部分版本号
+    publishVersion = '0.2.7'    //compile引用时的第3部分版本号
     desc = 'art java hook method'//d项目描述
     website = 'https://github.com/shineygs/ArtAndHook' //github 托管地址
 }
