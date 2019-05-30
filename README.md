@@ -10,7 +10,7 @@
 
 ```
 dependencies {
-    implementation 'com.yanggs:arthook:0.2.3'
+    implementation 'com.yanggs:arthook:0.2.6'
 }
 
 // 如果报错就加上这段代码
