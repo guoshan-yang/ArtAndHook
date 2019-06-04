@@ -1,1 +1,1 @@
-include ':app', ':jhook'
+include ':app', ':jhook', ':library'

@@ -5,6 +5,10 @@ package com.iwcode;
  */
 public class MyTest {
 
+    private MyTest(int i) {
+        Logger.i("MyTest: i = "+i);
+    }
+
     public  MyTest() {
         Logger.i("MyTest:");
     }
@@ -22,7 +26,10 @@ public class MyTest {
     }
 
     public void testFun2(String s,int i){
-        Logger.i("testFun:"+s+","+i);
+        Logger.i("testFun2:"+s+","+i);
     }
 
+    public static void testFunS(String s,int i){
+        Logger.i("testFunS:"+s+","+i);
+    }
 }
