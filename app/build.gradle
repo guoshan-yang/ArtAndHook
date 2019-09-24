@@ -37,5 +37,5 @@ dependencies {
 
     implementation 'com.yanggs:arthook:0.2.7'
 //    implementation project(":jhook")
-    implementation project(":library")
+//    implementation project(":library")
 }

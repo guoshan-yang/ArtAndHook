@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.taobao.android.dexposed.DexposedBridge;
-import com.taobao.android.dexposed.XC_MethodHook;
+//import com.taobao.android.dexposed.DexposedBridge;
+//import com.taobao.android.dexposed.XC_MethodHook;
 import com.yanggs.jhook.JXposed;
 import com.yanggs.jhook.MethodCallback;
 import com.yanggs.jhook.MethodHookParam;
@@ -21,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
 //    static {
 //        System.loadLibrary("native-lib");
 //    }
+
+    private String abc(){
+        Logger.i("abc-------");
+        return "abc";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,20 +90,24 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        JXposed.findAndHookMethod(MyTest.class, "testFun2", String.class,int.class,new MethodCallback() {
-//            @Override
-//            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-//                super.beforeHookedMethod(param);
-//                Logger.i("beforeHookedMethod: testFunP");
-//            }
-//
-//            @Override
-//            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-//                super.afterHookedMethod(param);
-//                Logger.i("afterHookedMethod: testFunP");
-//
-//            }
-//        });
+        JXposed.findAndHookMethod(MainActivity.class, "abc",new MethodCallback() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                super.beforeHookedMethod(param);
+                Logger.i("beforeHookedMethod: abc");
+            }
+
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                super.afterHookedMethod(param);
+                Logger.i("afterHookedMethod: abc");
+                param.setResult("123");
+
+            }
+        });
+
+        String s = abc();
+        Logger.i("s = "+s);
 //
 //        MyTest myTest = new MyTest("ygs1",1);
 //        myTest.testFun("ygs2",2);
@@ -111,24 +120,24 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         // 调用隐藏api
-        boolean b = ReflectionUtil.exemptAll();
-
-        Logger.i("b = "+b);
-
-        DexposedBridge.findAndHookMethod(MyTest.class, "testFunS", String.class, int.class, new XC_MethodHook() {
-            @Override
-            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                super.beforeHookedMethod(param);
-                Logger.i("testFunS beforeHookedMethod");
-            }
-
-            @Override
-            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                super.afterHookedMethod(param);
-                Logger.i("testFunS afterHookedMethod");
-            }
-        });
-
-        MyTest.testFunS("ygs",10);
+//        boolean b = ReflectionUtil.exemptAll();
+//
+//        Logger.i("b = "+b);
+//
+//        DexposedBridge.findAndHookMethod(MyTest.class, "testFunS", String.class, int.class, new XC_MethodHook() {
+//            @Override
+//            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                super.beforeHookedMethod(param);
+//                Logger.i("testFunS beforeHookedMethod");
+//            }
+//
+//            @Override
+//            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                super.afterHookedMethod(param);
+//                Logger.i("testFunS afterHookedMethod");
+//            }
+//        });
+//
+//        MyTest.testFunS("ygs",10);
     }
 }
