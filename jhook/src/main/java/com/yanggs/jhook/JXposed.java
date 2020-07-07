@@ -103,6 +103,8 @@ public class JXposed {
                 outJarFile.delete();
             }
 
+            Log.i("JXposed","outJarFile = " + outJarFile.getAbsolutePath());
+
             ClassLoader loader = dexMaker.generateAndLoad(context.getClassLoader(), outputDir);
             Class<?> aClass = loader.loadClass(className);
 
