@@ -1,7 +1,7 @@
 package com.yanggs.jhook;
 
 /**
- * Created by YangGuoShan on 2019/5/24.
+ * Created by YangGuoShan on 2018/5/24.
  */
 public abstract class MethodCallback  {
     public MethodCallback() {
