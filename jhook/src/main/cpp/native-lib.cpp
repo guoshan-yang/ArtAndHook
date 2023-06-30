@@ -59,6 +59,8 @@ Java_com_yanggs_jhook_HookUtil_computeSupperCls(JNIEnv* env, jclass clazz,jobjec
 
     uint32_t *dCls=(uint32_t *)field->declaring_class_;
     uint32_t *hCls=(uint32_t *)demo->declaring_class_;
+
+    LOGD("computeSupperCls = %p, %p",dCls,hCls);
     for(int i=0;i<50;++i){
         if(*(dCls+i)==NULL&&*(hCls+i)==(uint32_t)dCls){
             supperOffset=i;
@@ -73,6 +75,7 @@ Java_com_yanggs_jhook_HookUtil_setSupperCls(JNIEnv *env, jclass type, jobject fl
 
     art::mirror::ArtField* field=(art::mirror::ArtField*)env->FromReflectedField(flag);
     size_t *dCls=(size_t *)field->declaring_class_;
+    LOGD("supperOffset1 = %d",supperOffset);
     if (supperOffset == -1){
         if (api_level == 28 || api_level == 27 || api_level == 26){
             supperOffset = 10;
@@ -84,5 +87,6 @@ Java_com_yanggs_jhook_HookUtil_setSupperCls(JNIEnv *env, jclass type, jobject fl
             supperOffset = 11;
         }
     }
+    LOGD("supperOffset2 = %d",supperOffset);
     *(dCls + supperOffset) = NULL;
 }

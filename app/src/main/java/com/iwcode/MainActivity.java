@@ -3,6 +3,7 @@ package com.iwcode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 //import com.taobao.android.dexposed.DexposedBridge;
 //import com.taobao.android.dexposed.XC_MethodHook;
@@ -22,15 +23,12 @@ public class MainActivity extends AppCompatActivity {
 //        System.loadLibrary("native-lib");
 //    }
 
-    private String abc(){
-        Logger.i("abc-------");
-        return "abc";
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // 调用隐藏api
+//        boolean b = ReflectionUtil.exemptAll();
 
 //        JXposed.findAndHookConstructor(MyTest.class, new MethodCallback() {
 //            @Override
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //
-//        JXposed.findAndHookMethod(MyTest.class, "testFunFinal", String.class,int.class,new MethodCallback() {
+//        JXposed.findAndHookMethod(MyTest.class, "testFunS", String.class,int.class,new MethodCallback() {
 //            @Override
 //            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 //                super.beforeHookedMethod(param);
@@ -89,38 +87,52 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+//        JXposed.findAndHookMethod(MainActivity.class, "abc",new MethodCallback() {
+//            @Override
+//            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                super.beforeHookedMethod(param);
+//                Logger.i("beforeHookedMethod: abc");
+//            }
 //
-        JXposed.findAndHookMethod(MainActivity.class, "abc",new MethodCallback() {
+//            @Override
+//            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                super.afterHookedMethod(param);
+//                Logger.i("afterHookedMethod: abc");
+//                param.setResult("123");
+//
+//            }
+//        });
+
+        JXposed.findAndHookMethod(TextView.class, "setText",CharSequence.class,new MethodCallback() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 super.beforeHookedMethod(param);
-                Logger.i("beforeHookedMethod: abc");
+                Logger.i("beforeHookedMethod: setText" + param.args[0]);
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 super.afterHookedMethod(param);
-                Logger.i("afterHookedMethod: abc");
-                param.setResult("123");
-
+                Logger.i("afterHookedMethod: setText");
             }
         });
 
-        String s = abc();
-        Logger.i("s = "+s);
-//
+        ((TextView)findViewById(R.id.sample_text)).setText("hello holle");
+
+//        String s = abc();
+//        Logger.i("s = "+s);
+
 //        MyTest myTest = new MyTest("ygs1",1);
 //        myTest.testFun("ygs2",2);
 //        myTest.testFunFinal("ygs3",3);
 //        try{
-//            JXposedHelpers.callMethod(new MyTest(),"testFun2","ygs4", 4);
+//            JXposedHelpers.callMethod(new MyTest(),"testFunS","ygs4", 4);
 //        }catch (Exception e){
 //            Logger.i(e.getMessage());
 //            e.printStackTrace();
 //        }
 
-        // 调用隐藏api
-//        boolean b = ReflectionUtil.exemptAll();
 //
 //        Logger.i("b = "+b);
 //

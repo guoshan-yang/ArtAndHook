@@ -9,6 +9,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11"
+            }
+            ndk{
+//                abiFilters "armeabi","armeabi-v7a","x86"
+                abiFilters "armeabi-v7a"
+            }
+        }
     }
     buildTypes {
         release {
@@ -21,6 +31,11 @@ android {
         targetCompatibility = '1.8'
     }
 
+    sourceSets{
+        main{
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 repositories {
@@ -35,7 +50,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation 'com.yanggs:arthook:0.2.7'
-//    implementation project(":jhook")
+//    implementation 'com.yanggs:arthook:0.2.7'
+    implementation project(":jhook")
 //    implementation project(":library")
 }
